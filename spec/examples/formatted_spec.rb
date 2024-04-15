@@ -1,7 +1,7 @@
 RSpec.describe 'Formatted' do
   describe 'label' do
     let(:content) { 'Hello!' }
-    let(:labelled) { Haste.progress(limit: 100).label(content) }
+    let(:labelled) { Haste.label(content).progress(to: 100) }
 
     it 'prints the content' do
       expect(labelled.to_s).to eq content
@@ -9,7 +9,7 @@ RSpec.describe 'Formatted' do
   end
 
   describe 'percent' do
-    let(:percent) { Haste.progress(limit: 100).percent }
+    let(:percent) { Haste.percent.progress(to: 100) }
 
     it 'prints the progress as a percentage' do
       expect(percent.increase(50).to_s).to eq '50%'
@@ -21,7 +21,7 @@ RSpec.describe 'Formatted' do
   end
 
   describe 'bar' do
-    let(:bar) { Haste.progress(limit: 100).bar }
+    let(:bar) { Haste.bar.progress(to: 100) }
 
     it 'prints an empty bar when there is no progress' do
       expect(bar.to_s).to eq '|                                                  |'
@@ -33,18 +33,19 @@ RSpec.describe 'Formatted' do
   end
 
   describe 'composing multiple views' do
-    let(:progress) { Haste.progress(limit: 100) }
-
     it 'prints each view together' do
-      expect(progress.label('Downloading:').percent.to_s).to eq 'Downloading: 0%'
+      label_with_percent = Haste.label('Downloading:').percent
+      expect(label_with_percent.progress(to: 100).to_s).to eq 'Downloading: 0%'
     end
 
     it 'prints them in call order' do
-      expect(progress.percent.label('-> Downloading...').to_s).to eq '0% -> Downloading...'
+      percent_to_label = Haste.percent.label('-> Downloading...')
+      expect(percent_to_label.progress(to: 100).to_s).to eq '0% -> Downloading...'
     end
 
     it 'can print the same view more than once' do
-      expect(progress.label('A').label('B').label('C').to_s).to eq 'A B C'
+      multiple_labels = Haste.label('A').label('B').label('C')
+      expect(multiple_labels.progress(to: 100).to_s).to eq 'A B C'
     end
   end
 end

@@ -1,8 +1,4 @@
 require 'delegate'
-require_relative 'views/percent'
-require_relative 'views/bar'
-require_relative 'views/label'
-require_relative 'views/spinner'
 
 module Haste
   class Formatted < SimpleDelegator
@@ -24,22 +20,6 @@ module Haste
 
     def increase(value)
       tap { super(value) }
-    end
-
-    def percent
-      tap { @views << Views::Percent.new }
-    end
-
-    def bar
-      tap { @views << Views::Bar.new }
-    end
-
-    def label(content)
-      tap { @views << Views::Label.new(content) }
-    end
-
-    def spinner(options = {})
-      tap { @views << Views::Spinner.new(**options) }
     end
   end
 end
