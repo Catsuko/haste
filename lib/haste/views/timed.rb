@@ -12,7 +12,7 @@ module Haste
 
         time = Time.now.to_i
         if ready_to_print?(time)
-          print_estimated_remaining(time)
+          print_estimated_remaining(f, time: time)
         else
           @start_time ||= time
           nil
@@ -29,7 +29,7 @@ module Haste
         @start_time = nil
       end
 
-      def print_estimated_remaining(time)
+      def print_estimated_remaining(f, time:)
         rate = f / (time - @start_time)
         estimated_remaining = (1 - f) / rate
         sprintf(@format, estimated_remaining.ceil)

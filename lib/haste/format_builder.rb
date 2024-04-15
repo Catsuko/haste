@@ -1,12 +1,6 @@
 require_relative 'progress'
 require_relative 'formatted'
 
-require_relative 'views/percent'
-require_relative 'views/bar'
-require_relative 'views/label'
-require_relative 'views/spinner'
-require_relative 'views/timed'
-
 module Haste
   class FormatBuilder
     def initialize(views: [])
@@ -16,25 +10,15 @@ module Haste
     def progress(value=0, to:)
       Formatted.new(Progress.new(value, to: to), views: @views)
     end
-    
-    def percent
-      tap { @views << Views::Percent.new }
-    end
 
-    def bar
-      tap { @views << Views::Bar.new }
-    end
-
-    def label(content)
-      tap { @views << Views::Label.new(content) }
-    end
-
-    def spinner(options = {})
-      tap { @views << Views::Spinner.new(**options) }
-    end
-
-    def timed
-      tap { @views << Views::Timed.new }
-    end
+    Dir[File.join(__dir__, 'views', '*.rb')].each do |file|
+      require file
+      method_name = File.basename(file, '.rb')
+      klass_name = method_name.split('_').map(&:capitalize).join
+      
+      define_method(method_name) do |*args, **options|
+        tap { @views << Views.const_get(klass_name).new(*args, **options) }
+      end
+    end    
   end
 end

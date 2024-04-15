@@ -1,6 +1,4 @@
-require_relative 'haste/progress'
 require_relative 'haste/format_builder'
-require_relative 'haste/formatted'
 
 module Haste
   def self.method_missing(method_name, *args, **kwargs, &block)
