@@ -7,8 +7,8 @@ module Haste
       @views = views
     end
 
-    def progress(value=0, to:)
-      Formatted.new(Progress.new(value, to: to), views: @views)
+    def build(goal:)
+      Formatted.new(Progress.new(goal: goal), views: @views)
     end
 
     Dir[File.join(__dir__, 'views', '*.rb')].each do |file|

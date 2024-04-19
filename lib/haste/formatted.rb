@@ -21,5 +21,9 @@ module Haste
     def increase(value)
       tap { super(value) }
     end
+
+    def print(to: STDOUT, padding: 100)
+      to.print("\r#{self}".ljust(padding))
+    end
   end
 end

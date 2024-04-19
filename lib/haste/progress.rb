@@ -2,11 +2,11 @@ module Haste
   class Progress
     attr_reader :value
 
-    def initialize(value, to:)
-      raise ArgumentError, 'Progress to cannot be zero' if to.zero?
-      
-      @value = value
-      @to = to
+    def initialize(goal:)
+      raise ArgumentError, '`goal` cannot be zero' if goal.zero?
+
+      @value = 0
+      @goal = goal
     end
 
     def to_s
@@ -14,11 +14,11 @@ module Haste
     end
 
     def inspect
-      "<Progress #{@value}/#{@to}>"
+      "<Progress #{@value}/#{@goal}>"
     end
 
     def to_f
-      (@value / @to.to_f).clamp(0, 1.0)
+      (@value / @goal.to_f).clamp(0, 1.0)
     end
 
     def reset
