@@ -1,6 +1,6 @@
 module Haste
   class Progress
-    attr_reader :value
+    attr_reader :value, :goal
 
     def initialize(goal:)
       raise ArgumentError, '`goal` cannot be zero' if goal.zero?

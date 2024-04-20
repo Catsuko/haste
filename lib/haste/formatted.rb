@@ -10,8 +10,7 @@ module Haste
     def to_s
       return super if @views.empty?
 
-      progress_float = to_f
-      @views.map { |view| view.print(progress_float) }.join(' ')
+      @views.map { |view| view.print(self) }.join(' ')
     end
 
     def update(value)

@@ -1,12 +1,12 @@
 module Haste
   module Views
-    class Percent
-      def initialize(format: '%d%%')
+    class Fraction
+      def initialize(format: '%d/%d')
         @format = format
       end
 
       def print(progress)
-        sprintf(@format, progress.to_f * 100)
+        sprintf(@format, progress.value, progress.goal)
       end
     end
   end

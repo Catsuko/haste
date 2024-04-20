@@ -5,7 +5,7 @@ module Haste
         @content = content
       end
 
-      def print(_f)
+      def print(_progress)
         @content
       end
     end

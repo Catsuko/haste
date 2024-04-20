@@ -8,9 +8,9 @@ module Haste
         @empty = empty
       end
 
-      def print(f)
+      def print(progress)
         chunk_size = 1.0 / @length
-        chunks = @length.times.map { |i| f > i * chunk_size ? @fill : @empty }
+        chunks = @length.times.map { |i| progress.to_f > i * chunk_size ? @fill : @empty }
         "#{@border}#{chunks.join}#{@border}"
       end
     end

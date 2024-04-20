@@ -7,7 +7,8 @@ module Haste
         @start_time = nil
       end
 
-      def print(f)
+      def print(progress)
+        f = progress.to_f
         return clear if f == 1
 
         time = Time.now.to_i

@@ -59,6 +59,10 @@ Adds a text element to the progress bar.
 
 Adds a label displaying the percentage completed.
 
+**fraction**
+
+Adds a label displaying the current progress and goal as a fraction, for example: `32/100`.
+
 **bar**
 
 Adds a large bar that fills up to make the progress completed. The following options can be provided to change how it looks:
@@ -82,4 +86,4 @@ Haste.spinner(frames: ['.  ', '.. ', '...']).build(goal: 100).print
 
 **timed**
 
-Provides a label that after a short delay, shows the estimated time remaining:
+Provides a label that after a short delay, showing the estimated time remaining.

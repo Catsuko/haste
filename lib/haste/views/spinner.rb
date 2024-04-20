@@ -9,7 +9,7 @@ module Haste
         @frame_counter = 0
       end
 
-      def print(_f)
+      def print(_progress)
         @frames[frame_counter.floor % @frames.size]
       end
 
