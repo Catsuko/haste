@@ -32,5 +32,9 @@ module Haste
     def increase(value)
       update(@value + value)
     end
+    
+    def remaining
+      @goal - @value
+    end
   end
 end

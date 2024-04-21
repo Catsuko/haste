@@ -11,14 +11,12 @@ module Haste
       Formatted.new(Progress.new(goal: goal), views: @views)
     end
 
-    Dir[File.join(__dir__, 'views', '*.rb')].each do |file|
-      require file
-      method_name = File.basename(file, '.rb')
-      klass_name = method_name.split('_').map(&:capitalize).join
-      
-      define_method(method_name) do |*args, **options|
-        tap { @views << Views.const_get(klass_name).new(*args, **options) }
+    def self.add_view_builder_method(name, handler:)
+      raise "`name` has already been defined, pick another name for the view" if respond_to?(name)
+
+      define_method(name) do |*args, **options|
+        tap { @views << handler.new(*args, **options) }
       end
-    end    
+    end
   end
 end

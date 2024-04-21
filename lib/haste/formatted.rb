@@ -10,7 +10,7 @@ module Haste
     def to_s
       return super if @views.empty?
 
-      @views.map { |view| view.print(self) }.join(' ')
+      @views.map { |view| view.print(__getobj__) }.join(' ')
     end
 
     def update(value)
